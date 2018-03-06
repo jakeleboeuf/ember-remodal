@@ -21,7 +21,7 @@ module.exports = {
       content => `if (typeof FastBoot === 'undefined') { ${content} }`
     );
 
-    return new MergeTrees([defaultTree, browserVendorLib]);
+    return new MergeTrees([defaultTree, remodalTree]);
   },
 
   treeForStyles: function(defaultTree) {
