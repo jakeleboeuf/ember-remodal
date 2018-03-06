@@ -21,7 +21,9 @@ module.exports = {
       content => `if (typeof FastBoot === 'undefined') { ${content} }`
     );
 
-    return new MergeTrees([defaultTree, remodalTree]);
+    return defaultTree
+      ? new MergeTrees([defaultTree, remodalTree])
+      : remodalTree;
   },
 
   treeForStyles: function(defaultTree) {
@@ -36,7 +38,9 @@ module.exports = {
       content => `if (typeof FastBoot === 'undefined') { ${content} }`
     );
 
-    return new MergeTrees([defaultTree, remodalTree]);
+    return defaultTree
+      ? new MergeTrees([defaultTree, remodalTree])
+      : remodalTree;
   },
 
   included: function(app) {
