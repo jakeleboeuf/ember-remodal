@@ -16,7 +16,7 @@ module.exports = {
       destDir: '/remodal/dist'
     });
 
-    browserVendorLib = map(
+    remodalTree = map(
       remodalTree,
       content => `if (typeof FastBoot === 'undefined') { ${content} }`
     );
@@ -30,12 +30,12 @@ module.exports = {
       destDir: '/remodal/dist'
     });
 
-    browserVendorCss = map(
+    remodalTree = map(
       remodalTree,
       content => `if (typeof FastBoot === 'undefined') { ${content} }`
     );
 
-    return new MergeTrees([defaultTree, browserVendorCss]);
+    return new MergeTrees([defaultTree, remodalTree]);
   },
 
   included: function(app) {
