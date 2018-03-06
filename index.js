@@ -4,22 +4,38 @@ var path = require('path');
 var resolve = require('resolve');
 var Funnel = require('broccoli-funnel');
 var MergeTrees = require('broccoli-merge-trees');
+var map = require('broccoli-stew').map;
+var remodalPath = path.dirname(resolve.sync('remodal'));
 
 module.exports = {
   name: 'ember-remodal',
 
-  treeForVendor(tree) {
-    var remodalPath = path.dirname(resolve.sync('remodal'));
+  treeForVendor(defaultTree) {
     var remodalTree = new Funnel(remodalPath, {
-      files: ['remodal.min.js', 'remodal.css', 'remodal-default-theme.css'],
+      files: ['remodal.min.js'],
       destDir: '/remodal/dist'
     });
 
-    if (!process.env.EMBER_CLI_FASTBOOT) {
-      return new MergeTrees([tree, remodalTree]);
-    } else {
-      return tree;
-    }
+    browserVendorLib = map(
+      remodalTree,
+      content => `if (typeof FastBoot === 'undefined') { ${content} }`
+    );
+
+    return new mergeTrees([defaultTree, browserVendorLib]);
+  },
+
+  treeForStyles: function(defaultTree) {
+    var remodalTree = new Funnel(remodalPath, {
+      files: ['remodal.css', 'remodal-default-theme.css'],
+      destDir: '/remodal/dist'
+    });
+
+    browserVendorCss = map(
+      remodalTree,
+      content => `if (typeof FastBoot === 'undefined') { ${content} }`
+    );
+
+    return new MergeTrees([defaultTree, browserVendorCss]);
   },
 
   included: function(app) {
