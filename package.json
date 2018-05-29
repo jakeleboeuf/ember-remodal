@@ -1,6 +1,6 @@
 {
   "name": "ember-remodal",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "An intensely usable modal addon for Ember.js",
   "directories": {
     "doc": "doc",
@@ -48,7 +48,11 @@
     "loader.js": "^4.0.1",
     "resolve": "^1.2.0"
   },
-  "keywords": ["ember-addon", "remodal", "modal"],
+  "keywords": [
+    "ember-addon",
+    "remodal",
+    "modal"
+  ],
   "dependencies": {
     "ember-cli-babel": "^5.1.6",
     "ember-cli-htmlbars": "^1.0.3",
